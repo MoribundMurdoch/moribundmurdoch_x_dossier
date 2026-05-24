@@ -1,7 +1,5 @@
 #![allow(non_snake_case)]
 
-use dioxus::prelude::*;
-
 mod analysis;
 mod app;
 mod config;
