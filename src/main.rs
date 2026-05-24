@@ -1,16 +1,16 @@
+#![allow(non_snake_case)]
+
 use dioxus::prelude::*;
 
-fn main() {
-    dioxus::launch(App);
-}
+mod analysis;
+mod app;
+mod config;
+mod db;
+mod export;
+mod ingest;
+mod routes;
+mod ui;
 
-#[component]
-fn App() -> Element {
-    rsx! {
-        main {
-            style: "padding: 24px; font-family: sans-serif;",
-            h1 { "MoribundMurdoch X Dossier" }
-            p { "The cursed scroll reader has initialized." }
-        }
-    }
+fn main() {
+    dioxus::launch(app::App);
 }
