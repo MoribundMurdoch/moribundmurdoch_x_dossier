@@ -26,3 +26,8 @@
 .env
 *.token
 *.key
+.env
+.env.*
+!.env.example
+keys/*.key
+keys/*.secret

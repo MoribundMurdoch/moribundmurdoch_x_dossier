@@ -1,0 +1,10 @@
+{
+  "dataset_name": "MoribundMurdoch X Dossier",
+  "handle": "MoribundMurdoch",
+  "generated_at": null,
+  "source_note": "Generated from MoribundMurdoch's own public X/Twitter activity.",
+  "includes_private_data": false,
+  "includes_likes": false,
+  "includes_bookmarks": false,
+  "status": "sample placeholder"
+}

@@ -6,6 +6,7 @@ mod config;
 mod db;
 mod export;
 mod ingest;
+mod public_data;
 mod routes;
 mod ui;
 

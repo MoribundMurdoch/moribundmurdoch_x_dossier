@@ -1,0 +1,14 @@
+[
+  {
+    "id": "sample-001",
+    "created_at": "2026-05-24",
+    "kind": "post",
+    "text": "This is placeholder public dataset content.",
+    "url": "https://x.com/MoribundMurdoch",
+    "hashtags": ["Archive"],
+    "mentions": [],
+    "links": [],
+    "broker_tags": ["sample", "public archive"],
+    "llm_context_warning": "Placeholder row. Not an actual historical post."
+  }
+]

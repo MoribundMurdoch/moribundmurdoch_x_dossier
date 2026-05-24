@@ -1,9 +1,10 @@
 use dioxus::prelude::*;
 
+use crate::export::public_data::generate_public_posts_json;
 use crate::ingest::x_api::XApiClient;
 
 pub fn ImportPanel() -> Element {
-    let mut status = use_signal(|| String::from("API not tested yet."));
+    let mut status = use_signal(|| String::from("Maintainer tools ready."));
     let mut profile_preview = use_signal(|| String::new());
     let mut post_preview = use_signal(|| String::new());
 
@@ -71,14 +72,33 @@ pub fn ImportPanel() -> Element {
             match result {
                 Ok((profile, posts)) => {
                     status.set(
-                        "X API sync test succeeded. The stalk-me periscope has blinked."
+                        "Maintainer X API test succeeded. The public-data periscope has blinked."
                             .to_string(),
                     );
                     profile_preview.set(profile);
                     post_preview.set(posts);
                 }
                 Err(err) => {
-                    status.set(format!("X API sync test failed:\n{err:#}"));
+                    status.set(format!("Maintainer X API test failed:\n{err:#}"));
+                }
+            }
+        });
+    };
+
+    let generate_public_data = move |_: Event<MouseData>| {
+        spawn(async move {
+            status.set("Generating public_data/posts.json...".to_string());
+            profile_preview.set(String::new());
+            post_preview.set(String::new());
+
+            match generate_public_posts_json().await {
+                Ok(path) => {
+                    status.set(format!("Generated {}", path.display()));
+                }
+                Err(err) => {
+                    status.set(format!(
+                        "Failed to generate public_data/posts.json:\n{err:#}"
+                    ));
                 }
             }
         });
@@ -87,7 +107,10 @@ pub fn ImportPanel() -> Element {
     rsx! {
         section {
             h2 { "Import / Sync" }
-            p { "Start with an X archive ZIP, then use the API for incremental self-surveillance." }
+            p {
+                "Maintainer-only tools for building the public MoribundMurdoch dataset. \
+                 Public viewers should never need an API token."
+            }
 
             div {
                 style: "display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;",
@@ -96,7 +119,12 @@ pub fn ImportPanel() -> Element {
 
                 button {
                     onclick: test_x_api,
-                    "Test X API: Stalk Me"
+                    "Maintainer: Test X API"
+                }
+
+                button {
+                    onclick: generate_public_data,
+                    "Generate public_data/posts.json"
                 }
 
                 button { "Reconcile Sources" }
