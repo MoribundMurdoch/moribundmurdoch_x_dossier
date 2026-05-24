@@ -1,1 +1,28 @@
 /target
+/dist
+.DS_Store
+
+# Dioxus / generated
+/.dioxus
+/.dx
+
+# Local app data
+/data/*.db
+/data/*.sqlite
+/data/*.sqlite3
+/data/*.db-wal
+/data/*.db-shm
+
+# Imported personal archives
+/imports/x_archives/*.zip
+/imports/manual/*
+
+# Generated exports
+/exports/**/*.jsonl
+/exports/**/*.md
+/exports/**/*.html
+
+# Secrets
+.env
+*.token
+*.key
