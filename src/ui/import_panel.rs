@@ -2,6 +2,8 @@ use dioxus::prelude::*;
 
 use crate::ingest::x_api::XApiClient;
 
+const ARCHIVE_THRONE_MASCOT: Asset = asset!("/assets/mascot/mor-twitter-archive-throne.png");
+
 pub fn ImportPanel() -> Element {
     let mut status = use_signal(|| {
         String::from(
@@ -131,47 +133,143 @@ pub fn ImportPanel() -> Element {
                     inset 0 1px 0 rgba(255,255,255,0.05);
             ",
 
-            h2 {
-                style: "margin: 0 0 8px; color: #82d9ff; text-shadow: 0 0 18px rgba(130,217,255,0.22);",
-                "Maintainer Tools"
-            }
-
-            p {
-                style: "margin: 0; color: #9bb0d3; line-height: 1.55;",
-                "Private tools for building the public MoribundMurdoch dataset. \
-                 Public viewers should never need an API token."
-            }
-
             div {
                 style: "
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-                    gap: 12px;
-                    margin-top: 18px;
+                    grid-template-columns: minmax(0, 1fr) minmax(230px, 300px);
+                    gap: 18px;
+                    align-items: stretch;
                 ",
 
-                MaintainerButton {
-                    label: "Import X Archive ZIP",
-                    detail: "historical dataset backfill",
-                    onclick: import_archive
+                div {
+                    h2 {
+                        style: "margin: 0 0 8px; color: #82d9ff; text-shadow: 0 0 18px rgba(130,217,255,0.22);",
+                        "Maintainer Tools"
+                    }
+
+                    p {
+                        style: "margin: 0; color: #9bb0d3; line-height: 1.55;",
+                        "Private tools for building the public MoribundMurdoch dataset. \
+                         Public viewers should never need an API token."
+                    }
+
+                    div {
+                        style: "
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+                            gap: 12px;
+                            margin-top: 18px;
+                        ",
+
+                        MaintainerButton {
+                            label: "Import X Archive ZIP",
+                            detail: "historical dataset backfill",
+                            onclick: import_archive
+                        }
+
+                        MaintainerButton {
+                            label: "Maintainer: Test X API",
+                            detail: "fresh public activity check",
+                            onclick: test_x_api
+                        }
+
+                        MaintainerButton {
+                            label: "Generate public_data/posts.json",
+                            detail: "static viewer payload",
+                            onclick: generate_public_data
+                        }
+
+                        MaintainerButton {
+                            label: "Reconcile Sources",
+                            detail: "archive + API merge",
+                            onclick: reconcile_sources
+                        }
+                    }
                 }
 
-                MaintainerButton {
-                    label: "Maintainer: Test X API",
-                    detail: "fresh public activity check",
-                    onclick: test_x_api
-                }
+                div {
+                    style: "
+                        position: relative;
+                        overflow: hidden;
+                        min-height: 340px;
+                        border: 1px solid rgba(142, 150, 255, 0.28);
+                        border-radius: 24px;
+                        background:
+                            radial-gradient(circle at 50% 12%, rgba(130, 217, 255, 0.18), transparent 42%),
+                            linear-gradient(180deg, rgba(31, 45, 80, 0.58), rgba(10, 16, 31, 0.68));
+                        box-shadow:
+                            0 16px 34px rgba(0,0,0,0.22),
+                            inset 0 1px 0 rgba(255,255,255,0.05);
+                    ",
 
-                MaintainerButton {
-                    label: "Generate public_data/posts.json",
-                    detail: "static viewer payload",
-                    onclick: generate_public_data
-                }
+                    div {
+                        style: "
+                            position: absolute;
+                            inset: 0;
+                            background:
+                                repeating-linear-gradient(
+                                    to bottom,
+                                    rgba(255,255,255,0.026) 0,
+                                    rgba(255,255,255,0.026) 1px,
+                                    transparent 1px,
+                                    transparent 20px
+                                );
+                            opacity: 0.35;
+                            pointer-events: none;
+                        "
+                    }
 
-                MaintainerButton {
-                    label: "Reconcile Sources",
-                    detail: "archive + API merge",
-                    onclick: reconcile_sources
+                    div {
+                        style: "
+                            position: relative;
+                            z-index: 1;
+                            padding: 14px;
+                        ",
+
+                        div {
+                            style: "
+                                color: #c1a8ff;
+                                font-size: 0.76rem;
+                                text-transform: uppercase;
+                                letter-spacing: 0.14em;
+                            ",
+                            "Archive Throne"
+                        }
+
+                        h3 {
+                            style: "margin: 7px 0 6px; color: #f4f8ff;",
+                            "Dataset goblin cockpit"
+                        }
+
+                        p {
+                            style: "
+                                margin: 0;
+                                color: #9bb0d3;
+                                font-size: 0.86rem;
+                                line-height: 1.45;
+                            ",
+                            "API keys stay local. Public viewers get generated JSON, not your secrets."
+                        }
+                    }
+
+                    img {
+                        src: ARCHIVE_THRONE_MASCOT,
+                        alt: "Archive throne mascot",
+                        style: "
+                            position: absolute;
+                            left: 50%;
+                            bottom: -18px;
+                            transform: translateX(-50%);
+                            width: min(285px, 95%);
+                            max-height: 285px;
+                            object-fit: contain;
+                            opacity: 0.96;
+                            filter:
+                                drop-shadow(0 0 26px rgba(130, 217, 255, 0.20))
+                                drop-shadow(0 18px 28px rgba(0,0,0,0.36));
+                            pointer-events: none;
+                        "
+                    }
                 }
             }
 
